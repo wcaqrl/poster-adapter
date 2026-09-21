@@ -7,7 +7,7 @@ source:
     tag: 0.1.3
     image: ghcr.io/wcaqrl/poster
 fingerprint: sha256:6db1d182461960afdfd709716fa5dce3e3f44a2a0e57cd81f0f2773fdb5d8e7f
-status: packaged
+status: submitted
 application:
     package: peter.lazycat.app.poster
     version: 0.1.3
