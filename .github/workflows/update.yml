@@ -1,6 +1,14 @@
 name: Update Poster for LazyCat
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/update.yml
+      - lazycat-action.yml
+      - lzc-build.yml
+      - lzc-manifest.yml
+      - package.yml
   schedule:
     # 03:17 UTC = 11:17 China Standard Time, once per day.
     - cron: '17 3 * * *'
@@ -21,5 +29,5 @@ jobs:
     with:
       config: lazycat-action.yml
       operation: auto
-      dry-run: ${{ inputs.dry-run || false }}
+      dry-run: ${{ github.event_name == 'push' || inputs.dry-run || false }}
     secrets: inherit
