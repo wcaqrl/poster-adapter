@@ -1,0 +1,25 @@
+name: Update Poster for LazyCat
+
+on:
+  schedule:
+    # 03:17 UTC = 11:17 China Standard Time, once per day.
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: Only check for a new image; do not copy, package, or submit.
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    uses: wcaqrl/lazycat-action/.github/workflows/lazycat.yml@v1
+    with:
+      config: lazycat-action.yml
+      operation: auto
+      dry-run: ${{ inputs.dry-run || false }}
+    secrets: inherit

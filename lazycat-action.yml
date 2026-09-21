@@ -1,0 +1,55 @@
+version: 2
+
+project:
+  root: .
+  build_config: lzc-build.yml
+  package_file: package.yml
+  output: dist/peter.lazycat.app.poster.lpk
+  target_arch: amd64
+
+source:
+  kind: oci
+  image: ghcr.io/wcaqrl/poster
+  select:
+    strategy: semver-tag
+    channel: stable
+    tag_regex: '^v?[0-9]+\.[0-9]+\.[0-9]+$'
+
+state:
+  file: .lazycat-action.lock.yml
+
+update:
+  strategy: publish
+  allow_downgrade: false
+
+build:
+  run_buildscript: false
+  prepare:
+    mode: passthrough
+
+images:
+  - id: poster
+    target: service
+    service: poster
+    delivery:
+      mode: lazycat
+
+stores:
+  official:
+    enabled: true
+    skip_if_version_exists: true
+    create_if_missing: true
+    changelog_locales: [zh, en]
+    application:
+      language: zh
+      name: 海报实验室
+      brief: 用于验证懒猫应用自动发布链路的 React 海报应用
+      description: 展示响应式海报作品，并验证 Docker 镜像更新、官方镜像转存、LPK 构建与应用商店审核的完整自动化流程。
+      keywords: React, 海报, 自动发布
+      source: https://github.com/wcaqrl/poster
+      source_author: wcaqrl
+      support_pc: true
+      support_mobile: false
+      screenshot_pc_files:
+        - screenshots/poster-desktop-1.png
+        - screenshots/poster-desktop-2.png
