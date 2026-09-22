@@ -15,6 +15,10 @@ source:
     channel: stable
     tag_regex: '^v?[0-9]+\.[0-9]+\.[0-9]+$'
 
+changelog:
+  git_url: https://github.com/wcaqrl/poster.git
+  max_commits: 20
+
 state:
   file: .lazycat-action.lock.yml
 
