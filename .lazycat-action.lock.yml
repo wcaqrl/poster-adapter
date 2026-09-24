@@ -7,7 +7,7 @@ source:
     tag: 0.1.3
     image: ghcr.io/wcaqrl/poster
 fingerprint: sha256:1f0e08f2e9ea5f44ce479c6689ae8d80f6ae634265672cca0e4b10fcfc9ddeba
-status: packaged
+status: submitted
 images:
     - id: poster
       source_ref: ghcr.io/wcaqrl/poster:0.1.3@sha256:3fd61e606ef8b6b200ba38e6d54cf148400c4579827e23ad1d7b346cac800744
