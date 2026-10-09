@@ -8,7 +8,9 @@
 
 当前已提交版本以 `package.yml` 和 `.lazycat-action.lock.yml` 为准。适配仓库曾自动送审 `0.1.3`；配置更新日志抓取后，只有下一次发现新镜像才会生成并携带新日志送审。不要手工改动锁文件状态或把未送审的版本标记为 `submitted`。
 
-自动流程：发现 GHCR 新摘要 → 从 Poster Git 标签读取本次变更的提交记录 → 调用官方 copy-image 接口 → 更新 `lzc-manifest.yml` 与 `package.yml` → `lzc-cli` 构建、验证 `.lpk` → 将版本、镜像、更新日志和锁文件推送回本仓库 → 用开发者 PAT 携带更新日志提交懒猫官方应用商店审核 → 提交完成状态。审核期间自动流程会暂停。生成的 `.lpk` 会附在对应的 Actions 运行记录中，不加入 Git。
+自动流程：发现 GHCR 新摘要 → 从 Poster Git 标签读取本次变更的提交记录 → 调用官方 copy-image 接口 → 更新 `lzc-manifest.yml` 与 `package.yml` → 构建、验证 `.lpk` → 将版本、镜像、更新日志和锁文件推送回本仓库 → 并行提交官方商店审核和创建 GitHub Release。新的源版本可替换旧待审核版本；同一已送审的源版本会跳过，包括被拒绝的审核。
+
+Release 的 `v<应用版本>` 下仅提供 `peter.lazycat.app.poster-v<应用版本>.lpk`；Release 失败只显示警告，不影响商店送审。锁文件自动记录审核 ID、状态、创建时间和拒绝原因。修复适配配置后，可在手动运行时取消 `dry-run` 并勾选 `retry-rejected`，将同一被拒绝的源版本打包为新的应用 patch 版本后送审。工作流继续引用统一的 `@v1`。
 
 ## 一次性设置
 
